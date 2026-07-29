@@ -8,16 +8,21 @@ To access photos, export as a shapefile and unzip the photo folder included in t
 ## Managing outputs with Python
 We have developed a post-field data extraction script. This script works with the exported GeoPackage to:
 * Use the "Site ID" attribute to extract and organize spatial data from the original Avenza output into folders, by site.
-* Extract individual site forms (and convert to CSV) place them into subfolders.
-* Extract images (stored as BLOBs in the exported geopackages) from Avenza output, organize photos into folders, and create photo logs for each folder.
+* Extract individual forms for each site, convert to CSV, and place them into subfolders.
 * Convert the site form CSV to a readable text file for proofreading and entry into a database/PDF form
+* Extract images (stored as BLOBs in the exported GeoPackages) from Avenza output, organize photos into folders, and create photo logs for each folder.
 
-### Installing Python and relevant libraries (beginner's guide )
-Python is a programming language with many options for geospatial data management (if you are already comfortable using Python, skip to "Required Libraries" below). To run a Python script (```.py``` file) you need to have 1) a Python interpreter installed on your computer, 2) a way to download and install Python libraries, 3) a way to manage virtual environments, and, ideally, 4) some kind of integrated development environment (IDE) software that helps you edit and debug code.
+### Installing Python and relevant libraries (beginner's guide)
+Python is a programming language with many options for geospatial data management (if you are already comfortable using Python, skip to "Required Libraries" below). To run a Python script (```.py``` file) you need to have:
+
+1. A Python interpreter installed on your computer
+2. Some way to download and install Python libraries
+3. Some way to manage virtual environments
+4. An integrated development environment (IDE) software that helps you edit and debug code (alternatively, you can edit these files in programs like Notepad or TextEdit, but IDEs make it easier)
 
 You can download an install a Python interpreter by following the instructions on the [Python Software Foundation webpage](https://www.python.org/about/gettingstarted/). Your computer may also already have its own Python installation and you can follow the instructions on that webpage to check. 
 
-In addition to Python itself you will also need to install additional Python libraries. Python has a standard library (a set of functions that you can use without having to write them yourself) with basic math, statistics, and file management functions. But other developers have created libraries of code to do more complex tasks, like work with geospatial data. To use these scripts, you will need to install some of these libraries. The best way to do that is with a package manager software. ```pip``` (see ["Installing Python modules"](https://docs.python.org/3/installing/index.html)) is a common Python package manager that runs through the command line. [Anaconda](https://www.anaconda.com/download/success) is another great solution. It is a software that comes with a Python distribution and a program to download and install additional libraries with a graphical user interface option. 
+In addition to Python itself you will also need to install additional Python libraries. Python has a standard library (a set of functions that you can use without having to write them yourself) that includes basic math, statistics, and file management functions. Other developers have created libraries of code to do complex work like analyzing geospatial data. To use the scripts in this repository, you will need to install some of these libraries. The best way to do that is with a package manager software. ```pip``` is a common Python package manager that runs through the command line. The Python Software foundation has a page explaining how to use this package manager (see ["Installing Python modules"](https://docs.python.org/3/installing/index.html)). [Anaconda](https://www.anaconda.com/download/success) is another way to manage Python libraries. It comes with a Python distribution and a program to download and install additional libraries with a graphical user interface. 
 
 Once you decide which package manager you want to use, then you should create a new "virtual environment." A virtual environment is essentially a separate set of folders on your computer with its own version of Python and a select number of libraries installed. Sometimes libraries have different requirements (e.g., only work with certain versions of Python) so the easiest way to make sure that your libraries can run correctly is to create a new virtual environment with the required Python version, install libraries in that environment, and run scripts while that environment is active. Python comes wth a built-in environment manager called ```venv``` ([see Python documentation](https://docs.python.org/3/library/venv.html#module-venv)) that runs through the command line. Anaconda also lets you manage environments without using the command line.
 
@@ -25,20 +30,20 @@ Finally, you will need some way to open and run Python files. You can run Python
 
 #### Required libraries
 
-Running the scripts in this folder requires several common geospatial Python libraries:
+Running the scripts in this folder requires several Python data/geospatial data analysis libraries:
 * [Pandas](https://pandas.pydata.org/getting_started.html) (2.2.3)
 * [GeoPandas](https://geopandas.org/en/stable/getting_started.html) (1.0.1)
 * [Fiona](https://fiona.readthedocs.io/en/stable/install.html) (1.10.1, should install as a GeoPandas dependency)
 * [Shapely](https://shapely.readthedocs.io/en/stable/) (2.0.6, should install as a GeoPandas dependency)
 
-Follow the instructions on the library pages to install the libraries with your package manager.
+Follow the instructions on each library's page to install the libraries with your package manager.
 
 ### Data structure assumptions
 
 This extractor script  makes some assumptions about the structure of the data:
 
 * All spatial data in the input folder are GeoPackages, and those GeoPackages were exported from Avenza (there are specific database functions and Avenza layers that the script needs to function)
-* All data that you want to be extracted and reorganized will have a "Site ID" column (anything without a Site ID column will not be extracted into the relevant site folder and will have to be manually located after the extractor script finishes)
+* All data that you want to be extracted and reorganized will have a column called "Site ID" (anything without a Site ID column will not be extracted into the relevant site folder and will have to be manually located after the extractor script finishes)
 * The Photo layer has a column with a name like "Description" with data that should go into the photo log (the script searches for a field that contains the string "escript"; if that field isn't located, that photo will have an empty description field in the generated photo log)
 * New sites/isolates/site updates were recorded in a layer that included the text "form" or "update" (to find the site form, the extractor script searches within layers with these names)
 
@@ -46,7 +51,9 @@ Other than these assumptions, the extractor scripts should still work even if us
 
 ### Using the script
 
-Activate the environment with the listed libraries installed. Then, open the ```extract_survey_data.py``` file in your IDE. At the top of the script is a section labelled:
+Activate the environment with the listed libraries installed. Then, open the ```extract_survey_data.py``` file in your IDE (different IDEs have different ways of working with virtual environments, so be sure to read the program's documentation). 
+
+At the top of the script is a section labelled:
 
 ```
 ################
@@ -56,7 +63,7 @@ Activate the environment with the listed libraries installed. Then, open the ```
 
 You should only need to make edits to the script below this header. This section lets you assign values to specific [variables](https://en.wikipedia.org/wiki/Variable_(high-level_programming_language)) (a name associated with a value) that the functions (in the source folder) will use to organize your data. In Python, you assign values to variables by typing the name of the variable followed by an equals sign. In this script, for example, the first variable is ```get_recent```. The line ```get_recent = False``` means that every time the variable ```get_recent``` is used in the script the interpreter reads that as the value "False." 
 
-Go through the variables under the Parameters header and (using the comments, i.e., text preceded by "#") update the variables so they match the file paths where your data is stored. File paths should have forward slashes and be enclosed in apostrophes or quotation marks. The final variable, ```output_crs``` needs to have the [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset) code of coordinate reference system to which you want your final geospatial data projected. You can easily find these online by searching the name of the coordinate system. For instance, searching "NAD 83 UTM zone 12n epsg" tells us that the EPSG code for UTM Zone 12N is 26912. 
+Go through the variables under the Parameters header and update the variables so they match the file paths where your data is stored. If you're not sure what to fill out for a variable, look for the comment (text preceded by ```#```) above the variable. File paths should have forward slashes and be enclosed in apostrophes or quotation marks. The final variable, ```output_crs``` needs to have the [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset) code of coordinate reference system to which you want your final geospatial data projected. You can find these online by searching the name of the coordinate system you want to project into. For instance, searching "NAD 83 UTM zone 12n epsg" tells us that the EPSG code for UTM Zone 12N is 26912. 
 
 Once you have updated all the variables, run the script (look for a play button or a menu labelled "Run" in your IDE). This will run through all the data in the survey data folder and reorganize it (without modifying the original data) into the folder you defined as ```extracted_data_folder```.
 

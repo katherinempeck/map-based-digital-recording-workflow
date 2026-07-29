@@ -17,7 +17,7 @@
 
 # Summary
 
-This digital archaeological data recording system divides common site/isolate documentation tasks up into discrete geospatial layers within Avenza Maps, an offline mapping application. Each crew member will be given their own tablet and Bluetooth GPS. Then, they will download survey basemaps, download layer schema and symbologies, and record data for each site/isolate using only the layer which matches their task for the day. In the field, crew members share data to the crew chief after each new site/isolate is recorded (using AirDrop, QuickShare, or a physical drive). The crew chief then backs up the data to a physical drive in the field. At the end of the day, the crew chief backs up the day's data to cloud storage or to a computer's local storage, depending on the project needs. After the project, the final data file can be processed using the Python compiler script (see Post-Field Data Management folder)
+This digital archaeological data recording system divides common site/isolate documentation tasks up into discrete geospatial layers within Avenza Maps, an offline mapping application. Each crew member will be given their own tablet and Bluetooth GPS. Then, they will download survey basemaps, download layer schema and symbologies, and record data for each site/isolate using only the layer which matches their task for the day (see "Field Recording" folder for a description fo each task). In the field, crew members share data to the Task A crew member after each new site/isolate is recorded (using AirDrop, QuickShare, or a physical drive). This crew member then backs up the data to a physical drive in the field. At the end of the day, this crew member backs up the day's data to cloud storage or to a computer's local storage, depending on the project needs. After the project, the final data file can be processed using the Python compiler script (see "Post-Field Data Management" folder)
 
 # Setup (Before Fieldwork)
 
@@ -78,7 +78,7 @@ current location, click the Navigation button (3) first.
 
 ## Add project maps
 
-To set up a field iPad with the correct maps, and schema, open Avenza, click the + icon in
+To set up a field iPad with the correct maps and schemas open Avenza, click the + icon in
 the upper right of the screen (see Fig. 3) and click "Import Maps."
 Select "From Storage Location" and select the relevant location. Then select the project maps from the appropriate folder. 
 
@@ -101,7 +101,7 @@ location and boundaries of previously recorded sites) you can follow
 this same procedure, but leave "Import Schema Only" unchecked.
 
 ## Edit Schema
-Editing the schema is easiest to do in Avenza. After adding the schema to the map, navigate to the layer list (Figure 2, option 7). Select the ... next to the desired layer and select "edit." Scroll down to "Attribute Schema" to reorder the attributes, edit the data type for individual attributes (e.g. string vs. integer), or add pick list values (values which show up in a dropdown list when that attribute is selected; users are not limited, however, to picking a value in the pick list). Select "+ Add" next to "New attribute" to add and define a new attribute. In Avenza, attributes are ordered alphabetically by default. While layers can be manually reordered, adding a leading integer to each layer can ensure that they are displayed in the desired order at all times (e.g., 1-Site ID, 2-Site Description). Schema edits can be made in the field. However, those changes will only be reflected on an individual user's device. Schema will need to be reshared to update across all crew members devices.
+Editing a schema is easiest to do in Avenza. After adding a schema to the map, navigate to the layer list (Figure 2, option 7). Select the ... next to the desired layer and select "edit." Scroll down to "Attribute Schema" to reorder the attributes, edit the data type for individual attributes (e.g. string vs. integer), or add pick list values (values which show up in a dropdown list when that attribute is selected; users are not limited, however, to picking a value in the pick list). Select "+ Add" next to "New attribute" to add and define a new attribute. In Avenza, attributes are ordered alphabetically by default. While layers can be manually reordered, adding a leading integer to each layer can ensure that they are displayed in the desired order at all times (e.g., 1-Site ID, 2-Site Description). Schema edits can be made in the field. However, those changes will only be reflected on an individual user's device. Schemas will need to be reshared to update across all crew members devices.
 
 The process of using these schema to record data is described in detail in the Recording Manual (Field folder).
 

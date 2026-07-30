@@ -1,5 +1,7 @@
 # A map-based and task-oriented digital recording workflow for archaeological survey
 
+[![DOI](https://zenodo.org/badge/1308096097.svg)](https://doi.org/10.5281/zenodo.21707241)
+
 ## Overview
 This repository contains Avenza schemas, Python scripts, and a detailed manual for the digital recording workflow described in our manuscript:
 

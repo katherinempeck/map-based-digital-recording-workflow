@@ -5,7 +5,7 @@
 ## Overview
 This repository contains Avenza schemas, Python scripts, and a detailed manual for the digital recording workflow described in our manuscript:
 
-Peck, Katherine and Grant Snitker. 2026. "Evaluating a task and map-based digital recording workflow for pedestrian archaeological survey."
+Peck, Katherine and Grant Snitker. 2026. "Evaluating a task and map-based digital recording workflow for pedestrian archaeological survey." A preprint of our manuscript is available on SocArXiv at the following DOI: [10.31235/osf.io/tz82c_v1](https://doi.org/10.31235/osf.io/tz82c_v1).
 
 The contents of each folder is summarized below. 
 
